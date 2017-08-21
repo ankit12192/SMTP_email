@@ -1,24 +1,38 @@
+# -*- coding: utf-8 -*-
+# Author Ankit tiwari
+
+"""
+
+This code will perform email operations
+
+send_email() will send multiple emails to a user
+
+create_folder() will create folder in your gmail account
+
+Note : Please do not edit any methods or class unless you need to make code changes
+"""
+
+
 import smtplib
 import imaplib
-from email.mime.text import MIMEText as text
 import time
+import random
+
 
 class email_functions:
 
-# Declaring class variables
+    ''' Class variables'''
     host = "imap.gmail.com"
     sender = ''
     password = ''
-    reciver = ''
-    body = ""
-    m = text(body)
-    m['Subject'] = 'Hello!'
-    m['From'] = sender
-    m['To'] = reciver
-
+    file = open("message.txt", "r")
+    msg = file.read()
+    string_message = str(msg)
+    folder_name =''
 
     def __init__(self):
-        '''Constructure which performs login when the object is created '''
+        '''constructor which performs login
+        when the object is created '''
 
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
         self.server.starttls()
@@ -26,33 +40,38 @@ class email_functions:
         print "Performing login"
 
 
+    def get_random_number(self):
+        '''Return a random number with current TS'''
 
-    def send_emails(self,count):
+        sub = random.randint(1,100000)+time.time()
+        return sub
+
+
+    def send_emails(self,count,receiver):
+
         """Takes 2 arguments
             count : total number emails that needs to be sent
-            reciver : whom you want to send the email
+            Receiver : whom you want to send the email
         """
-
         start_time = time.time()
         try:
             for i in range(0, count):
-                self.server.sendmail(self.sender, self.reciver,self.m.as_string())
-
+                Number = str(self.get_random_number())
+                Subject = "Test Automation"+Number
+                message = """From: """ +self.sender+""" \nTo: """+receiver+""" \nSubject: """+Subject+"""\n\n """+self.string_message+""""""
+                self.server.sendmail(self.sender, str(receiver),message)
                 print "Successfully sent "+str(i+1)+" message"
             total_time = time.time() - start_time
             print "Total time taken "+str(total_time)
+
+
         except:
             print "Error: unable to send email"
-
-
+        finally:
+            self.server.quit()
 
     def create_folders(self):
+        '''Creates a single folder with a name'''
         mail = imaplib.IMAP4_SSL(self.host)
         mail.login(self.sender, self.password)
-        mail.create("BusinessEmails")
-
-
-
-obj = email_functions()
-obj.send_emails(10)
-
+        mail.create(self.folder_name)
