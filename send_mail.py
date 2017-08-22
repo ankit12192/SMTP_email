@@ -17,6 +17,7 @@ import smtplib
 import imaplib
 import time
 import random
+import webbrowser
 
 
 class email_functions:
@@ -31,13 +32,21 @@ class email_functions:
     folder_name =''
 
     def __init__(self):
+
         '''constructor which performs login
         when the object is created '''
+        try:
 
-        self.server = smtplib.SMTP('smtp.gmail.com', 587)
-        self.server.starttls()
-        self.server.login(self.sender, self.password)
-        print "Performing login"
+
+            self.server = smtplib.SMTP('smtp.gmail.com', 587)
+            self.server.starttls()
+            self.server.login(self.sender, self.password)
+            print "Performing login"
+        except:
+            print "Check if Allow less secure App is enabled for your account and re-run the code"
+            webbrowser.open("https://github.com/ankit12192/SMTP_email/wiki/Home/")
+            exit(0)
+
 
 
     def get_random_number(self):
@@ -75,3 +84,4 @@ class email_functions:
         mail = imaplib.IMAP4_SSL(self.host)
         mail.login(self.sender, self.password)
         mail.create(self.folder_name)
+

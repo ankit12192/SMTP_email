@@ -6,13 +6,12 @@ Use this file to configure how the script should run
 
 '''
 
-email_functions.sender="Your Email id here"
-email_functions.password="Your password here "
+email_functions.sender="Your email"
+email_functions.password="your password"
 TO = "Receiver Id here"
 
 """Total number of emails you want to send """
 count = 2
-
 
 
 
