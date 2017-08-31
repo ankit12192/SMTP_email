@@ -12,15 +12,14 @@ create_folder() will create folder in your gmail account
 Note : Please do not edit any methods or class unless you need to make code changes
 """
 
-
 import smtplib
 import imaplib
 import time
 import random
 import webbrowser
+import traceback
 
-
-class email_functions:
+class EmailFunctions:
 
     ''' Class variables'''
     host = "imap.gmail.com"
@@ -37,7 +36,6 @@ class email_functions:
         when the object is created '''
         try:
 
-
             self.server = smtplib.SMTP('smtp.gmail.com', 587)
             self.server.starttls()
             self.server.login(self.sender, self.password)
@@ -47,14 +45,11 @@ class email_functions:
             webbrowser.open("https://github.com/ankit12192/SMTP_email/wiki/Home/")
             exit(0)
 
-
-
     def get_random_number(self):
         '''Return a random number with current TS'''
 
         sub = random.randint(1,100000)+time.time()
         return sub
-
 
     def send_emails(self,count,receiver):
 
@@ -73,9 +68,8 @@ class email_functions:
             total_time = time.time() - start_time
             print "Total time taken "+str(total_time)
 
-
         except:
-            print "Error: unable to send email"
+            print "Error: unable to send email",traceback.print_exc()
         finally:
             self.server.quit()
 

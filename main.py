@@ -1,22 +1,21 @@
-from send_mail import email_functions
-
-
-'''
-Use this file to configure how the script should run
+from send_mail import EmailFunctions
+import argparse
 
 '''
+Enter your credentials below  \||/
 
-email_functions.sender="Your email"
-email_functions.password="your password"
-TO = "Receiver Id here"
+'''
 
-"""Total number of emails you want to send """
-count = 2
-
+EmailFunctions.sender="Your Email id"
+EmailFunctions.password="Your Password"
 
 
-obj = email_functions()
-obj.send_emails(count,TO)
-
-
-
+'''Dont Edit this code!!! '''
+parser = argparse.ArgumentParser()
+parser.add_argument('count', help='Enter Count',type=int)
+parser.add_argument('To', help='Enter To Address',type=str)
+args = parser.parse_args()
+TOO = args.To
+count = args.count
+obj = EmailFunctions()
+obj.send_emails(count=count,receiver=TOO)
