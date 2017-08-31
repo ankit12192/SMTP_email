@@ -2,7 +2,7 @@ from send_mail import EmailFunctions
 import argparse
 
 '''
-Enter your credentials below  \||/
+Enter your credentials below
 
 '''
 
