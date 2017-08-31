@@ -3,7 +3,7 @@ import argparse
 
 '''
 Enter your credentials below
-
+-------------------------------
 '''
 
 EmailFunctions.sender="Your Email id"
